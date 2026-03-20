@@ -1,0 +1,32 @@
+<!-- Bid ZIP Download Component Template -->
+<div class="zip-download-section" *ngIf="zipFilePath">
+  <div class="zip-item">
+    <div class="zip-info">
+
+      <span class="zip-name">{{ getFileName(zipFilePath) }}</span>
+      <span class="zip-badge">ZIP</span>
+    </div>
+    <button 
+      class="zip-download-btn" 
+      (click)="downloadZip()"
+      [disabled]="isLoading"
+    >
+    
+      <span *ngIf="!isLoading">Download ZIP</span>
+      <span *ngIf="isLoading">Downloading...</span>
+    </button>
+  </div>
+  
+  <!-- Error Message -->
+  <div class="error-message" *ngIf="errorMessage">
+    <span class="error-icon"></span>
+    <span>{{ errorMessage }}</span>
+    <button class="close-btn" (click)="clearError()">✕</button>
+  </div>
+  
+  <!-- Success Message -->
+  <div class="success-message" *ngIf="showSuccessMessage">
+    <span class="success-icon"></span>
+    <span>ZIP file downloaded successfully!</span>
+  </div>
+</div>

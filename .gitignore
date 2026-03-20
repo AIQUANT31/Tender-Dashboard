@@ -1,0 +1,118 @@
+# ============================
+# Backend (Java/Spring Boot)
+# ============================
+Backend/target/
+Backend/*.class
+Backend/*.jar
+Backend/*.war
+Backend/*.ear
+Backend/.gradle/
+Backend/build/
+Backend/out/
+
+# Maven
+Backend/pom.xml.tag
+Backend/pom.xml.releaseBackup
+Backend/pom.xml.versionsBackup
+
+# IDE - Backend specific
+Backend/.idea/
+Backend/*.iml
+Backend/out/
+Backend/.settings/
+Backend/.classpath
+Backend/.project
+
+# ============================
+# Frontend (Angular/Node.js)
+# ============================
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+frontend/.nuxt/
+frontend/.output/
+frontend/coverage/
+frontend/.env
+frontend/.env.local
+frontend/.env.*.local
+
+# Package lock files (optional - keep if needed)
+# frontend/package-lock.json
+
+# IDE - Frontend specific
+frontend/.idea/
+frontend/*.iml
+
+# ============================
+# Cardanos Lucid Service
+# ============================
+Backend/cardano-lucid-service/node_modules/
+Backend/cardano-lucid-service/dist/
+
+# ============================
+# Common (Both Frontend & Backend)
+# ============================
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.settings/
+.classpath
+*.sublime-*
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Environment files (sensitive)
+.env
+.env.local
+.env.*.local
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.orig
+*.pyc
+__pycache__/
+
+# Archives (bid documents - keep if needed)
+Backend/bid-documents/
+# If you want to keep some bid documents, use negation:
+# !Backend/bid-documents/important.pdf
+
+# Build outputs
+dist/
+build/
+out/
+target/
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Misc
+*.pid
+*.seed
+*.pid.lock
+*.tgz

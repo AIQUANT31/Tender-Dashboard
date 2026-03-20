@@ -1,0 +1,88 @@
+<div class="summary-report">
+  <div class="report-header">
+    <h2>Document Validation Summary Report</h2>
+    <span class="generated-at" *ngIf="report">Generated: {{ formatDate(report.generatedAt) }}</span>
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    Loading report...
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <div *ngIf="report" class="report-content">
+    <!-- Bid/Tender Info -->
+    <div class="info-section" *ngIf="report.bidId || report.tenderId">
+      <h3>Details</h3>
+      <div class="info-grid">
+        <div class="info-item" *ngIf="report.tenderName">
+          <span class="label">Tender:</span>
+          <span class="value">{{ report.tenderName }}</span>
+        </div>
+        <div class="info-item" *ngIf="report.bidderName">
+          <span class="label">Bidder:</span>
+          <span class="value">{{ report.bidderName }}</span>
+        </div>
+      </div>
+    </div>
+
+   
+    <div class="stats-section">
+      <div class="stat-card found">
+        <div class="stat-icon"></div>
+        <div class="stat-info">
+          <div class="stat-value">{{ report.totalDocumentsFound }}</div>
+          <div class="stat-label">Documents Found</div>
+        </div>
+      </div>
+      <div class="stat-card missing">
+        <div class="stat-icon"></div>
+        <div class="stat-info">
+          <div class="stat-value">{{ report.totalDocumentsMissing }}</div>
+          <div class="stat-label">Missing Documents</div>
+        </div>
+      </div>
+      <div class="stat-card duplicate">
+        <div class="stat-icon"></div>
+        <div class="stat-info">
+          <div class="stat-value">{{ report.totalDocumentsDuplicate }}</div>
+          <div class="stat-label">Duplicate Documents</div>
+        </div>
+      </div>
+      <div class="stat-card processed">
+        <div class="stat-icon"></div>
+        <div class="stat-info">
+          <div class="stat-value">{{ report.totalDocumentsProcessed }}</div>
+          <div class="stat-label">Total Processed</div>
+        </div>
+      </div>
+    </div>
+
+ 
+    <div class="documents-section" *ngIf="getAllReportDocuments().length > 0">
+      <h3>Documents ({{ getAllReportDocuments().length }})</h3>
+      <ul class="document-list">
+        <li *ngFor="let doc of getAllReportDocuments()" class="document-item">
+          {{ doc }}
+        </li>
+      </ul>
+    </div>
+
+    <!-- Manual Changes Section -->
+    <div class="activity-section" *ngIf="report.manualChangesCount > 0">
+      <h3> Manual Changes ({{ report.manualChangesCount }})</h3>
+      <ul class="activity-list">
+        <li *ngFor="let change of report.recentManualChanges" class="activity-item">
+          {{ change }}
+        </li>
+      </ul>
+    </div>
+
+    <!-- No Data Message -->
+    <div class="no-data" *ngIf="!report.totalDocumentsFound && !report.totalDocumentsMissing && !report.totalDocumentsDuplicate">
+      No document validation data available for this report.
+    </div>
+  </div>
+</div>
