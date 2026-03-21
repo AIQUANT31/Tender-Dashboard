@@ -56,8 +56,5 @@ export class BidderStatsComponent implements OnChanges {
   }
 
   // Get win rate percentage   
-  get winRate(): number {
-    if (this.stats.totalBidsPlaced === 0) return 0;
-    return Math.round((this.stats.winningBids / this.stats.totalBidsPlaced) * 100);
-  }
+  
 }

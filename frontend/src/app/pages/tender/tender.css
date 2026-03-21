@@ -45,6 +45,29 @@
   background: #0052a3;
 }
 
+.back-btn {
+  background: #6c757d;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.back-btn:hover {
+  background: #5a6268;
+}
+
+.tender-detail-page {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
 
 .loading {
   text-align: center;
@@ -260,6 +283,7 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
+  
 }
 
 .stat-card {
@@ -268,6 +292,13 @@
   padding: 24px;
   text-align: center;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    
+   transition: transform 0.2s, box-shadow 0.2s;
+
+}
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 12px rgba(75, 10, 196, 0.1);
 }
 
 .stat-number {

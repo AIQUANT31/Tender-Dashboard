@@ -52,6 +52,7 @@ export class NavComponent {
   logout() {
     localStorage.removeItem('username');
     localStorage.removeItem('userId');
+    localStorage.removeItem('token');
     window.location.href = '/login';
   }
 }

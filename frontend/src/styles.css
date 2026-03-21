@@ -42,11 +42,6 @@ body {
   scroll-behavior: smooth;
 }
 
-/* Prevent body scroll when modal is open */
-body.modal-open {
-  overflow: hidden;
-}
-
 /* Route animations */
 .route-animations {
   animation: fadeIn 0.3s ease-out;

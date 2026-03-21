@@ -114,7 +114,7 @@ public class CardanoService {
                 summaryMap.put("bidId", summary.getBidId());
                 summaryMap.put("tenderId", summary.getTenderId());
                 summaryMap.put("bidderName", summary.getBidderName());
-                summaryMap.put("validationStatus", summary.getValidationStatus());
+                // summaryMap.put("validationStatus", summary.getValidationStatus());
                 summariesList.add(summaryMap);
             }
             requestBody.put("summaries", summariesList);
@@ -197,6 +197,7 @@ public class CardanoService {
         
         return response;
     }
+    
     
    
     private static String bytesToHex(byte[] bytes) {

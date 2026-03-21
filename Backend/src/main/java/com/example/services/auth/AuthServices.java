@@ -65,7 +65,7 @@ public class AuthServices {
         String usernameOrEmail = loginRequest.getUsernameOrEmail();
         Optional<User> userOptional = userRepository.findByUsername(usernameOrEmail);
         
-        // If not found by username, try by email
+        
         if (userOptional.isEmpty()) {
             userOptional = userRepository.findByEmail(usernameOrEmail);
         }
@@ -121,6 +121,8 @@ public class AuthServices {
         return response;
     }
 
+
+    // update the profile  
     public Map<String, Object> updateProfile(Map<String, Object> request) {
         Map<String, Object> response = new HashMap<>();
         

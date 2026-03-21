@@ -34,6 +34,9 @@ export class Login {
           this.isSuccess = response.success === true;
           if (this.isSuccess) {
             localStorage.setItem('username', this.username);
+            if (response.token) {
+              localStorage.setItem('token', response.token);
+            }
             if (response.user && response.user.id) {
               localStorage.setItem('userId', response.user.id.toString());
             }

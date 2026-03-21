@@ -176,12 +176,12 @@ export class LucidService {
       ipfs_hash: ipfsHash,
       summary_hash: summaryHash || '',
       timestamp: new Date().toISOString(),
-      network: `cardano-${this.network}`,
+      // network: `cardano-${this.network}`,
       summaries: summaries.map(s => ({
         bid_id: s.bidId || s.bid_id || '',
         tender_id: s.tenderId || s.tender_id || '',
         bidder_name: s.bidderName || s.bidder_name || '',
-        status: s.validationStatus || s.status || ''
+        // status: s.validationStatus || s.status || ''
       }))
     };
     return metadata;

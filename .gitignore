@@ -1,6 +1,5 @@
-# ============================
-# Backend (Java/Spring Boot)
-# ============================
+
+# Backend 
 Backend/target/
 Backend/*.class
 Backend/*.jar
@@ -23,9 +22,9 @@ Backend/.settings/
 Backend/.classpath
 Backend/.project
 
-# ============================
-# Frontend (Angular/Node.js)
-# ============================
+
+# Frontend 
+
 frontend/node_modules/
 frontend/dist/
 frontend/.angular/
@@ -36,22 +35,18 @@ frontend/.env
 frontend/.env.local
 frontend/.env.*.local
 
-# Package lock files (optional - keep if needed)
-# frontend/package-lock.json
+
 
 # IDE - Frontend specific
 frontend/.idea/
 frontend/*.iml
 
-# ============================
 # Cardanos Lucid Service
-# ============================
 Backend/cardano-lucid-service/node_modules/
 Backend/cardano-lucid-service/dist/
 
-# ============================
+
 # Common (Both Frontend & Backend)
-# ============================
 
 # IDEs
 .idea/
@@ -98,8 +93,7 @@ __pycache__/
 
 # Archives (bid documents - keep if needed)
 Backend/bid-documents/
-# If you want to keep some bid documents, use negation:
-# !Backend/bid-documents/important.pdf
+
 
 # Build outputs
 dist/

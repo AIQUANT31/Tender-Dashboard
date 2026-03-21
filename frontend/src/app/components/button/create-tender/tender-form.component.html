@@ -1,5 +1,4 @@
-<div class="modal-overlay" *ngIf="isOpen" (click)="onCancel.emit()">
-  <div class="modal-content" (click)="$event.stopPropagation()">
+<div class="form-container" *ngIf="isOpen">
     <div class="modal-header">
       <h2>{{ title }}</h2>
       <button class="close-btn" (click)="onCancel.emit()">×</button>
@@ -187,5 +186,4 @@
         <button type="submit" class="btn-primary" [disabled]="!isValidForm()">Create Tender</button>
       </div>
     </form>
-  </div>
 </div>

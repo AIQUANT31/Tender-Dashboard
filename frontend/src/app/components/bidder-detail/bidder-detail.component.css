@@ -28,7 +28,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px 24px;
-  background: linear-gradient(135deg, #55545d 0%, #7c3aed 100%);
+  background: linear-gradient(135deg, #3d2ead 0%, hsl(267, 7%, 75%) 100%);
   color: white;
   border-radius: 16px 16px 0 0;
 }

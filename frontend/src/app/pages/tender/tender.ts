@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { NavComponent } from '../../components/nav/nav.component';
@@ -49,7 +50,7 @@ export class TenderPage implements OnInit {
   currentPage: number = 1;
   itemsPerPage: number = 10;
 
-  constructor(private http: HttpClient, private cdr: ChangeDetectorRef) {
+  constructor(private http: HttpClient, private cdr: ChangeDetectorRef, private router: Router, private route: ActivatedRoute) {
     if (typeof localStorage !== 'undefined') {
       this.username = localStorage.getItem('username') || 'User';
       const userIdStr = localStorage.getItem('userId');
@@ -63,6 +64,37 @@ export class TenderPage implements OnInit {
 
   ngOnInit() {
       console.log('TenderPage ngOnInit');
+      
+      // Check if there's a tender ID in the route
+      this.route.params.subscribe(params => {
+        if (params['id']) {
+          const tenderId = +params['id'];
+          if (params['id'] === 'create') {
+            // Show create tender form
+            this.showTenderForm = true;
+          } else if (tenderId) {
+            this.loadTenderDetails(tenderId);
+          }
+        }
+      });
+  }
+
+  loadTenderDetails(tenderId: number) {
+    this.loading = true;
+    this.http.get<TenderData>(`http://localhost:8080/api/tenders/${tenderId}`).subscribe({
+      next: (data) => {
+        this.selectedTender = data;
+        this.showTenderDetail = true;
+        this.loading = false;
+        this.cdr.detectChanges();
+      },
+      error: (error) => {
+        console.error('Error fetching tender details:', error);
+        alert('Error loading tender details');
+        this.loading = false;
+        this.cdr.detectChanges();
+      }
+    });
   }
 
   loadTenders(userType: string = '') {
@@ -200,15 +232,18 @@ export class TenderPage implements OnInit {
 
       this.http.post<any>('http://localhost:8080/api/tenders/create', request).subscribe({
         next: (response) => {
-                    console.log('Tender created successfully:', response);
+          console.log('Tender created successfully:', response);
 
-          if (response.success) {
-            alert('Tender created successfully!');
+          // Check if response indicates success (either success=true or has id)
+          if (response.success || response.id) {
+            // Redirect to tender list without showing popup
             this.showTenderForm = false;
-            document.body.classList.remove('modal-open');
-          
             this.tenders = [];
             this.loadTenders();
+            // Use timeout to ensure data is loaded before navigation
+            setTimeout(() => {
+              this.router.navigate(['/tender']);
+            }, 100);
           } else {
             alert(response.message || 'Error creating tender');
           }
@@ -254,22 +289,8 @@ export class TenderPage implements OnInit {
   }
 
   viewDetails(tenderId: number) {
-    this.loading = true;
-    this.http.get<TenderData>(`http://localhost:8080/api/tenders/${tenderId}`).subscribe({
-      next: (data) => {
-        this.selectedTender = data;
-        this.showTenderDetail = true;
-        this.loading = false;
-        document.body.classList.add('modal-open');
-        this.cdr.detectChanges();
-      },
-      error: (error) => {
-        console.error('Error fetching tender details:', error);
-        alert('Error loading tender details');
-        this.loading = false;
-        this.cdr.detectChanges();
-      }
-    });
+    // Navigate to tender details page instead of showing popup
+    this.router.navigate(['/tender', tenderId]);
   }
 
   confirmDelete(tenderId: number) {
@@ -282,6 +303,8 @@ export class TenderPage implements OnInit {
     this.showTenderDetail = false;
     this.selectedTender = null;
     document.body.classList.remove('modal-open');
+    // Navigate back to tender list
+    this.router.navigate(['/tender']);
   }
 
   onDeleteTender(tenderId: number) {

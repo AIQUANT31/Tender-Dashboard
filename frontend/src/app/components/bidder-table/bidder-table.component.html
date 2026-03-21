@@ -7,7 +7,7 @@
         <th>Phone</th>
         <th>Type</th>
         <th>Status</th>
-        <th>Actions</th>
+        <!-- <th>Actions</th> -->
       </tr>
     </thead>
     <tbody>
@@ -16,9 +16,9 @@
         <td class="email">{{ bidder.email }}</td>
         <td class="phone">{{ bidder.phone || '-' }}</td>
         <td class="type">{{ bidder.type || '-' }}</td>
-        <td>
+        <!-- <td>
           <span class="status-badge" [class]="bidder.status.toLowerCase()">{{ bidder.status }}</span>
-        </td>
+        </td> -->
         <td class="actions">
           <button class="action-btn view" (click)="onView(bidder.id, $event)">View</button>
           <button class="action-btn edit" *ngIf="userId && bidder.createdBy === userId" (click)="onEdit(bidder)">Edit</button>

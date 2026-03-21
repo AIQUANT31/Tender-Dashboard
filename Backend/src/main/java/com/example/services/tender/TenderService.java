@@ -89,7 +89,7 @@ public class TenderService {
             tenderMap.put("openingDate", savedTender.getOpeningDate() != null ? savedTender.getOpeningDate().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) : null);
             tenderMap.put("contactNumber", savedTender.getContactNumber() != null ? savedTender.getContactNumber() : "");
             tenderMap.put("isWhatsapp", savedTender.getIsWhatsapp() != null ? savedTender.getIsWhatsapp() : false);
-            tenderMap.put("comments", savedTender.getComments() != null ? savedTender.getComments() : "");
+            // tenderMap.put("comments", savedTender.getComments() != null ? savedTender.getComments() : "");
             tenderMap.put("userType", savedTender.getUserType() != null ? savedTender.getUserType() : "");
             
             response.put("tender", tenderMap);

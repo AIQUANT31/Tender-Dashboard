@@ -2,6 +2,7 @@ package com.example.controller;
 
 import com.example.dto.SummaryReport;
 import com.example.entity.ActivityLog;
+import com.example.repository.ActivityLogRepository;
 import com.example.services.activity.ActivityLogService;
 import com.example.services.report.IpfsService;
 import com.example.services.report.ScrutinySummaryService;
@@ -10,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.repository.support.Repositories;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +25,8 @@ import java.util.Map;
 @CrossOrigin(origins = "*")
 public class ActivityLogController {
     
+    private final ActivityLogRepository activityLogRepository;
+
     private static final Logger logger = LoggerFactory.getLogger(ActivityLogController.class);
     
     @Autowired
@@ -36,6 +40,11 @@ public class ActivityLogController {
     
     @Autowired
     private IpfsService ipfsService;
+
+
+    ActivityLogController(ActivityLogRepository activityLogRepository) {
+        this.activityLogRepository = activityLogRepository;
+    }
     
     
     @PostMapping("/log")
@@ -95,6 +104,7 @@ public class ActivityLogController {
         }
     }
     
+ 
    
     @PostMapping("/document-accept")
     public ResponseEntity<Map<String, Object>> logDocumentAcceptance(
@@ -302,7 +312,7 @@ public class ActivityLogController {
     }
     
 
-     //stiore validation summary to ipes
+     
     @PostMapping("/store-to-ipfs")
     public ResponseEntity<Map<String, Object>> storeValidationToIpfs(
             @RequestParam Long bidId) {

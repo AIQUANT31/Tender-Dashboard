@@ -26,13 +26,13 @@ public class JacksonConfig {
     public Jackson2ObjectMapperBuilder jacksonBuilder() {
         return new Jackson2ObjectMapperBuilder()
                 .modules(customDateModule())
-                .featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+                .featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);  // .featuresTO Disbale Means  1679300000000   and Enable into these "2026-03-20T10:30:45"
     }
 
     @Bean
     public ObjectMapper objectMapper() {
         ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(customDateModule());
+        mapper.registerModule(customDateModule());// add custom  serializer and deserializer
         mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         return mapper;
     }
@@ -41,8 +41,8 @@ public class JacksonConfig {
         SimpleModule module = new SimpleModule("CustomDateModule");
         
         
-        module.addSerializer(LocalDateTime.class, new JsonSerializer<LocalDateTime>() {
-            @Override
+        module.addSerializer(LocalDateTime.class, new JsonSerializer<LocalDateTime>() {  //java to json
+            @Override  
             public void serialize(LocalDateTime value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
                 if (value != null) {
                     gen.writeString(value.format(ISO_LOCAL_DATE_TIME));
@@ -53,12 +53,14 @@ public class JacksonConfig {
         });
         
         
-        module.addDeserializer(LocalDateTime.class, new JsonDeserializer<LocalDateTime>() {
+        module.addDeserializer(LocalDateTime.class, new JsonDeserializer<LocalDateTime>() { // Json to java
             @Override
             public LocalDateTime deserialize(com.fasterxml.jackson.core.JsonParser p, DeserializationContext ctxt) throws IOException {
                 String value = p.getValueAsString();
                 if (value != null && !value.isEmpty()) {
-                    try {
+                    try{
+
+                    
                         return LocalDateTime.parse(value, ISO_LOCAL_DATE_TIME);
                     } catch (Exception e) {
                         

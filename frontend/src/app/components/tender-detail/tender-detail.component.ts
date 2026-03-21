@@ -1,9 +1,8 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { TenderBidsComponent } from '../tender-bids/tender-bids.component';
 
 interface TenderDetail {
   id: number;
@@ -47,17 +46,22 @@ interface BidderProfile {
 @Component({
   selector: 'app-tender-detail',
   standalone: true,
-  imports: [CommonModule, FormsModule, TenderBidsComponent],
+  imports: [CommonModule, FormsModule],
   templateUrl: './tender-detail.component.html',
   styleUrl: './tender-detail.component.css'
 })
-export class TenderDetailComponent {
+export class TenderDetailComponent implements OnInit {
   
   @Input() set tender(value: TenderDetail | null) {
     this._tender = value;
     if (value) {
       this.loadBidCount();
     }
+  }
+
+  ngOnInit() {
+    document.body.classList.add('modal-open');
+    document.documentElement.classList.add('modal-open');
   }
                                                                                                                      
 
@@ -123,6 +127,8 @@ export class TenderDetailComponent {
   }
 
   close() {
+    document.body.classList.remove('modal-open');
+    document.documentElement.classList.remove('modal-open');
     this.showBidForm = false;
     this.showBids = false;
     this.onClose.emit();
@@ -130,11 +136,9 @@ export class TenderDetailComponent {
 
 
   openBids() {
-    console.log('Opening called tender', this.tender?.id);
-    this.showBids = true;
-
-    this.cdr.detectChanges();
-     console.log('showBids set to:', this.showBids);
+    if (this.tender) {
+      this.router.navigate(['/tender', this.tender.id, 'bids']);
+    }
   }
 
   closeBids() {
@@ -216,10 +220,21 @@ export class TenderDetailComponent {
    
     const isDeadlinePassed = this.isTenderDeadlinePassed();
     
+    // Check if opening date has passed
+    const isOpeningDatePassed = this.isOpeningDatePassed();
+    
     return !isDeadlinePassed && 
            this.tender.status === 'OPEN' && 
+           isOpeningDatePassed &&
            this.currentUserId !== null && 
            this.tender.createdBy !== this.currentUserId;
+  }
+
+  isOpeningDatePassed(): boolean {
+    if (!this.tender?.openingDate) return true; // If no opening date, allow bidding
+    const openingDate = new Date(this.tender.openingDate);
+    const now = new Date();
+    return openingDate <= now;
   }
 
   

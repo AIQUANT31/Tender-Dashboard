@@ -24,6 +24,7 @@ public class ContentValidationModels {
         }
 
         public String getType() {
+        
             return type;
         }
 
@@ -50,7 +51,7 @@ public class ContentValidationModels {
             this.score = score;
             this.documentNumber = documentNumber;
         }
-
+ 
         public String getType() {
             return type;
         }
@@ -117,25 +118,32 @@ public class ContentValidationModels {
             this.validationScore = validationScore;
         }
 
+
         public List<String> getValidatedFields() {
             return validatedFields;
         }
+
 
         public void setValidatedFields(List<String> validatedFields) {
             this.validatedFields = validatedFields;
         }
 
+
         public List<String> getMissingFields() {
             return missingFields;
         }
 
+
         public void setMissingFields(List<String> missingFields) {
-            this.missingFields = missingFields;
+            this.missingFields = missingFields;  
+            
         }
+
 
         public String getErrorMessage() {
             return errorMessage;
-        }
+        }  
+
 
         public void setErrorMessage(String errorMessage) {
             this.errorMessage = errorMessage;

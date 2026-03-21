@@ -1,5 +1,4 @@
-<div class="tender-detail-overlay" (click)="close()">
-  <div class="tender-detail-modal" (click)="$event.stopPropagation()">
+<div class="tender-detail-page">
     <div class="modal-header">
       <h2>{{ tender?.name }}</h2>
       <button class="close-btn" (click)="close()">×</button>
@@ -121,6 +120,7 @@
     </div>
   </div>
 
+  <!-- Bid form - remains as modal popup -->
   <div class="bid-form-overlay" *ngIf="showBidForm" (click)="closeBidForm()">
     <div class="bid-form-modal" (click)="$event.stopPropagation()">
       <div class="bid-form-header">
@@ -189,9 +189,3 @@
   </div>
 
 
-  <app-tender-bids 
-    *ngIf="showBids && tender" 
-    [tender]="tender"
-    (onClose)="closeBids()">
-  </app-tender-bids>
-</div>

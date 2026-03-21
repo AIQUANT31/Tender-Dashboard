@@ -195,7 +195,7 @@ public class BidController {
     public ResponseEntity<Map<String, Object>> createBid(@RequestBody BidRequest request) {
         Map<String, Object> response = bidService.createBid(request);
         
-        // If bid created successfully, write hash to Cardano blockchain
+        
         if (response.containsKey("success") && (Boolean) response.get("success")) {
             try {
                 Bid savedBid = (Bid) response.get("bid");
@@ -216,7 +216,7 @@ public class BidController {
                     basicSummary.setRemarks("Bid submitted - awaiting scrutiny");
                     summaries.add(basicSummary);
                 }
-                
+            
                 // Generate SHA-256 hash of the bid summary
                 String summaryHash = cardanoService.generateHash(summaries);
                 
