@@ -17,7 +17,7 @@
   align-items: center;
   padding: 24px 28px;
   border-bottom: 1px solid #f3f4f6;
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  background: linear-gradient(135deg, #ceceda 0%, #200b53 100%);
   color: white;
 }
 
@@ -214,7 +214,7 @@
 }
 
 .btn-warning {
-  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  background: linear-gradient(135deg, hsl(40, 19%, 85%) 0%, #d97706 100%);
   color: white;
 }
 
@@ -275,7 +275,7 @@
 }
 
 .bid-btn {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  background: linear-gradient(135deg, #283833 0%, #86a89d 100%);
   color: white;
   padding: 14px 28px;
   font-size: 1.05rem;
@@ -310,7 +310,7 @@
 
 .bid-info {
   padding: 16px 20px;
-  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  background: linear-gradient(135deg, #eedfa5 0%, #8b897e 100%);
   border-radius: 12px;
   color: #92400e;
   font-weight: 500;
@@ -466,12 +466,12 @@
 }
 
 .btn-info {
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  background: linear-gradient(135deg, #262633 0%, #a592cf 100%);
   color: white;
 }
 
 .btn-info:hover {
-  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  background: linear-gradient(135deg, #8a87c0 0%, #7c3aed 100%);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
 }
@@ -485,7 +485,7 @@
 
 /* Closed Tender Message */
 .closed-tender {
-  background-color: #fef3c7;
+  background-color: #d3bf6e;
   padding: 16px;
   border-radius: 8px;
   text-align: center;

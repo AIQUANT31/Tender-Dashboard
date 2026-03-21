@@ -27,7 +27,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px 28px;
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  background: linear-gradient(135deg, #a4a4a8 0%, #31244e 100%);
   color: white;
   border-bottom: none;
 }
@@ -358,7 +358,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px 28px;
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  background: linear-gradient(135deg, #ababbb 0%, #332750 100%);
   border-bottom: none;
   color: white;
 }

@@ -60,7 +60,7 @@ interface TenderInfo {
     }
     
     .back-btn {
-      background: #6366f1;
+      background: #434369;
       color: white;
       border: none;
       padding: 12px 24px;
@@ -75,7 +75,7 @@ interface TenderInfo {
     }
     
     .back-btn:hover {
-      background: #4f46e5;
+      background: #74728f;
       transform: translateY(-2px);
       box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
     }

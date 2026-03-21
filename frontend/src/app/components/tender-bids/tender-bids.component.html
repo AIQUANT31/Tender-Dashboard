@@ -4,7 +4,7 @@
         <h2> Bids for Tender</h2>
         <p class="tender-name">{{ tender.name }}</p>
       </div>
-      <button class="close-btn" (click)="close()">×</button>
+      <!-- <button class="close-btn" (click)="close()">×</button> -->
     </div>
 
    
@@ -92,6 +92,9 @@
         </div>
       </div>
     </div>
+
+<!-- 
+    bid details Section -->
 
     <div class="bid-detail-overlay" *ngIf="showBidDetail && selectedBid" (click)="closeBidDetail()">
       <div class="bid-detail-modal" (click)="$event.stopPropagation()">
