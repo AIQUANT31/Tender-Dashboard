@@ -226,6 +226,16 @@ public class BidService {
             bid.setStatus(status);
             bid.setIsWinning("WINNING".equals(status));
             
+            // Close the tender when a bid is accepted/approved/winning
+            if ("WINNING".equals(status) || "APPROVED".equals(status) || "ACCEPTED".equals(status)) {
+                com.example.entity.Tender tender = tenderRepository.findById(bid.getTenderId()).orElse(null);
+                if (tender != null && !"CLOSED".equals(tender.getStatus())) {
+                    tender.setStatus("CLOSED");
+                    tenderRepository.save(tender);
+                    logger.info("Automatically closed tender {} after bid was {}", tender.getId(), status);
+                }
+            }
+            
             Bid updatedBid = bidRepository.save(bid);
             
             response.put("success", true);

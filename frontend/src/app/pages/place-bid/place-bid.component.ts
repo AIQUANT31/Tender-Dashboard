@@ -88,6 +88,9 @@ export class PlaceBidComponent implements OnInit {
   documentValidationResult: ValidationResponse | null = null;
   isValidatingDocuments = false;
 
+  // Blockchain transaction processing state
+  isSubmittingToBlockchain = false;
+
   // Blockchain transaction modal
   showBlockchainModal = false;
   blockchainInfo: BlockchainInfo | null = null;
@@ -360,6 +363,12 @@ export class PlaceBidComponent implements OnInit {
     if (!isValid) {
       return; 
     }
+    
+    // Show loading message while processing blockchain transaction
+    this.isSubmittingToBlockchain = true;
+    this.bidError = '';
+    this.cdr.detectChanges();
+    
     if (this.selectedBidFiles && this.selectedBidFiles.length > 0) {
       const formData = new FormData();
       formData.append('tenderId', this.tender.id.toString());
@@ -391,6 +400,10 @@ export class PlaceBidComponent implements OnInit {
               });
             }
             
+            // Reset blockchain processing state
+            this.isSubmittingToBlockchain = false;
+            this.cdr.detectChanges();
+            
             // Show blockchain transaction modal if available
             if (response.blockchainTransactionId) {
               this.createdBidId = response.bid?.id || null;
@@ -406,12 +419,14 @@ export class PlaceBidComponent implements OnInit {
               this.router.navigate(['/tender']);
             }
           } else {
+            this.isSubmittingToBlockchain = false;
             this.bidError = response.message || 'Error placing bid';
           }
           this.cdr.detectChanges();
         },
         error: (error) => {
           console.error('Error placing bid:', error);
+          this.isSubmittingToBlockchain = false;
           this.bidError = 'Error placing bid: ' + (error.error?.message || error.message || 'Please try again');
           this.cdr.detectChanges();
         }
@@ -444,6 +459,10 @@ export class PlaceBidComponent implements OnInit {
               });
             }
             
+            // Reset blockchain processing state
+            this.isSubmittingToBlockchain = false;
+            this.cdr.detectChanges();
+            
             // Show blockchain transaction modal if available
             if (response.blockchainTransactionId) {
               this.createdBidId = response.bid?.id || null;
@@ -459,12 +478,14 @@ export class PlaceBidComponent implements OnInit {
               this.router.navigate(['/tender']);
             }
           } else {
+            this.isSubmittingToBlockchain = false;
             this.bidError = response.message || 'Error placing bid';
           }
           this.cdr.detectChanges();
         },
         error: (error) => {
           console.error('Error placing bid:', error);
+          this.isSubmittingToBlockchain = false;
           this.bidError = 'Error placing bid: ' + (error.error?.message || error.message || 'Please try again');
           this.cdr.detectChanges();
         }

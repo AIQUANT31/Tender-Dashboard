@@ -236,13 +236,12 @@ export class TenderBidsComponent implements OnInit {
   
   downloadDocument(bidId: number, docPath?: string): void {
     if (bidId && docPath) {
-   
       const fileName = docPath.substring(docPath.lastIndexOf('/') + 1);
       const url = `http://localhost:8080/api/bids/download-document/${bidId}?fileName=${encodeURIComponent(fileName)}`;
-      window.open(url, '_blank');
+      this.downloadFile(url, fileName);
     } else if (bidId) {
-          const url = `http://localhost:8080/api/bids/download-document/${bidId}`;
-      window.open(url, '_blank');
+      const url = `http://localhost:8080/api/bids/download-document/${bidId}`;
+      this.downloadFile(url, 'document.pdf');
     }
   }
 
@@ -255,8 +254,42 @@ export class TenderBidsComponent implements OnInit {
     if (bidId && zipPath) {
       const fileName = zipPath.substring(zipPath.lastIndexOf('/') + 1);
       const url = `http://localhost:8080/api/bids/download-zip?fileName=${encodeURIComponent(fileName)}`;
-      window.open(url, '_blank');
+      this.downloadFile(url, fileName);
     }
+  }
+
+  private downloadFile(url: string, fileName: string): void {
+    const token = localStorage.getItem('token');
+    
+    if (!token) {
+      alert('Please login to download files');
+      return;
+    }
+
+    this.http.get(url, {
+      responseType: 'blob',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    }).subscribe({
+      next: (blob) => {
+        const blobUrl = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = blobUrl;
+        link.download = fileName;
+        link.style.display = 'none';
+        document.body.appendChild(link);
+        link.click();
+        setTimeout(() => {
+          document.body.removeChild(link);
+          window.URL.revokeObjectURL(blobUrl);
+        }, 100);
+      },
+      error: (err) => {
+        console.error('Download error:', err);
+        alert('Failed to download file. Please login again.');
+      }
+    });
   }
 
   hasZipFile(bid: BidWithBidder): boolean {

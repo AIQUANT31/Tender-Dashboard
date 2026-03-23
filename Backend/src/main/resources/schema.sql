@@ -75,7 +75,11 @@ CREATE TABLE IF NOT EXISTS activity_logs (
     old_value TEXT,
     new_value TEXT,
     timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    ip_address VARCHAR(50)
+    ip_address VARCHAR(50),
+    upload_count INTEGER DEFAULT 0,
+    found_documents TEXT,
+    missing_documents TEXT,
+    duplicate_documents TEXT
 );
 
 -- Create index for faster activity log queries

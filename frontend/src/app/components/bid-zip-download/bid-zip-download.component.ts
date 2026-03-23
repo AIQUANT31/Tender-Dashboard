@@ -110,14 +110,18 @@ export class BidZipDownloadComponent implements OnInit {
 
     const url = this.createDownloadUrl();
     
-    // Set up HTTP options for blob download
+    // Get token from localStorage
+    const token = localStorage.getItem('token');
+    
+    // Set up HTTP options for blob download with auth token
     const options: {
       responseType: 'blob';
       headers: HttpHeaders;
     } = {
       responseType: 'blob',
       headers: new HttpHeaders({
-        'Accept': 'application/zip, application/octet-stream'
+        'Accept': 'application/zip, application/octet-stream',
+        'Authorization': token ? `Bearer ${token}` : ''
       })
     };
 
@@ -236,18 +240,60 @@ export class BidZipDownloadComponent implements OnInit {
 
     try {
       const fileName = this.getFileName(this.zipFilePath);
+      const token = localStorage.getItem('token');
+      
+      if (!token) {
+        this.errorMessage = 'Authentication required. Please log in again';
+        this.downloadError.emit(this.errorMessage);
+        this.isLoading = false;
+        return;
+      }
+      
       const url = `${this.apiUrl}/download-zip?fileName=${encodeURIComponent(fileName)}`;
       
-      
-      window.open(url, '_blank');
-      
-      this.showSuccessMessage = true;
-      this.zipDownloaded.emit(this.zipFilePath as string);
-      
-      setTimeout(() => {
-        this.showSuccessMessage = false;
+      // Open with authentication header via fetch first, then download
+      fetch(url, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Accept': 'application/zip, application/octet-stream'
+        }
+      })
+      .then(response => {
+        if (!response.ok) {
+          if (response.status === 401) {
+            throw new Error('Authentication required. Please log in again');
+          }
+          throw new Error('Download failed');
+        }
+        return response.blob();
+      })
+      .then(blob => {
+        const blobUrl = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = blobUrl;
+        link.download = fileName;
+        link.style.display = 'none';
+        document.body.appendChild(link);
+        link.click();
+        setTimeout(() => {
+          document.body.removeChild(link);
+          window.URL.revokeObjectURL(blobUrl);
+        }, 100);
+        
+        this.showSuccessMessage = true;
+        this.zipDownloaded.emit(this.zipFilePath as string);
+        
+        setTimeout(() => {
+          this.showSuccessMessage = false;
+          this.isLoading = false;
+        }, 3000);
+      })
+      .catch(error => {
         this.isLoading = false;
-      }, 3000);
+        this.errorMessage = error.message || 'Failed to download file';
+        this.downloadError.emit(this.errorMessage || 'Failed to download file');
+      });
       
     } catch (error) {
       this.isLoading = false;

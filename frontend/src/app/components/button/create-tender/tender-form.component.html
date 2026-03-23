@@ -46,6 +46,7 @@
             id="openingDate"
             [(ngModel)]="formData.openingDate"
             name="openingDate"
+            [min]="today"
             required>
         </div>
       </div>
@@ -58,6 +59,7 @@
             id="deadline"
             [(ngModel)]="formData.deadline"
             name="deadline"
+            [min]="today"
             required
             (ngModelChange)="onDeadlineChange()">
           <div class="deadline-status" *ngIf="formData.deadline">

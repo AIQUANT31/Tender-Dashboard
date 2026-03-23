@@ -96,6 +96,11 @@
         <div class="validation-status" *ngIf="isValidatingDocuments">
           <p class="validating">Validating documents, please wait...</p>
         </div>
+        
+        <!-- Blockchain Processing Status -->
+        <div class="validation-status" *ngIf="isSubmittingToBlockchain">
+          <p class="validating">⏳ Please wait for the blockchain transaction hash...</p>
+        </div>
       
       <div class="validation-result" *ngIf="documentValidationResult && !isValidatingDocuments">
         <!-- Only show validated documents with clean names - no score or ID -->
@@ -125,9 +130,9 @@
       
 
         <div class="bid-form-actions">
-          <button class="btn btn-secondary" (click)="goBack()">Cancel</button>
-          <button class="btn btn-primary" (click)="submitBid()">
-            {{ createdBidId ? 'Bid Submitted (ID: ' + createdBidId + ')' : 'Submit Bid' }}
+          <button class="btn btn-secondary" (click)="goBack()" [disabled]="isSubmittingToBlockchain">Cancel</button>
+          <button class="btn btn-primary" (click)="submitBid()" [disabled]="isSubmittingToBlockchain || isValidatingDocuments">
+            {{ isSubmittingToBlockchain ? 'Processing...' : (createdBidId ? 'Bid Submitted (ID: ' + createdBidId + ')' : 'Submit Bid') }}
           </button>
         </div>
         

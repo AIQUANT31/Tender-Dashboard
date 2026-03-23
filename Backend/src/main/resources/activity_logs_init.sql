@@ -9,7 +9,11 @@ CREATE TABLE IF NOT EXISTS activity_logs (
     old_value TEXT,
     new_value TEXT,
     timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    ip_address VARCHAR(50)
+    ip_address VARCHAR(50),
+    upload_count INTEGER DEFAULT 0,
+    found_documents TEXT,
+    missing_documents TEXT,
+    duplicate_documents TEXT
 );
 
 CREATE INDEX IF NOT EXISTS idx_activity_username ON activity_logs(username);

@@ -42,6 +42,12 @@ export class TenderFormComponent implements OnChanges {
   customDocument = '';
   formError = false;
   selectedCategory = '';
+  
+  // Get today's date in YYYY-MM-DD format for min date validation
+  get today(): string {
+    const now = new Date();
+    return now.toISOString().split('T')[0];
+  }
 
   // Common required documents for all categories
   commonRequiredDocuments = [
