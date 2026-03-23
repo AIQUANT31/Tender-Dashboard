@@ -11,11 +11,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Service for cleaning up uploaded documents after ZIP download
- * Ensures bidder documents are not retained in the system
- * Only summary logs and blockchain references remain
- */
+
 @Service
 public class DocumentCleanupService {
 
@@ -23,13 +19,7 @@ public class DocumentCleanupService {
     private static final String UPLOAD_DIR = "./bid-documents/";
     private static final String BACKEND_UPLOAD_DIR = "Backend/bid-documents/";
 
-    /**
-     * Delete individual PDF documents after ZIP is downloaded
-     * Only deletes .pdf files, keeps .zip files for blockchain reference
-     * 
-     * @param documentPaths List of document paths to delete
-     * @return CleanupResult with success status and details
-     */
+   
     public CleanupResult cleanupDocuments(List<String> documentPaths) {
         CleanupResult result = new CleanupResult();
         
@@ -104,12 +94,7 @@ public class DocumentCleanupService {
         return result;
     }
 
-    /**
-     * Delete all PDF and ZIP files for a specific bid
-     * 
-     * @param bidId The bid ID whose documents should be deleted
-     * @return CleanupResult with success status
-     */
+ 
     public CleanupResult cleanupBidDocuments(Long bidId) {
         logger.info("Cleaning up documents for bid: {}", bidId);
         
@@ -140,13 +125,7 @@ public class DocumentCleanupService {
         return cleanupDocuments(pdfFiles);
     }
 
-    /**
-     * Delete specific file by filename
-     * Can delete both PDF and ZIP files
-     * 
-     * @param fileName The filename to delete
-     * @return true if deleted successfully
-     */
+
     public boolean deleteFile(String fileName) {
         try {
             if (fileName == null || fileName.isEmpty()) {
@@ -184,9 +163,7 @@ public class DocumentCleanupService {
         }
     }
 
-    /**
-     * Result class for cleanup operations
-     */
+   
     public static class CleanupResult {
         private boolean success;
         private String message;

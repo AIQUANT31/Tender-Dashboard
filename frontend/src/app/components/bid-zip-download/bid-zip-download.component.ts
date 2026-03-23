@@ -262,7 +262,7 @@ export class BidZipDownloadComponent implements OnInit {
       .then(response => {
         if (!response.ok) {
           if (response.status === 401) {
-            throw new Error('Authentication required. Please log in again');
+            throw new Error('zip file already downloaded');
           }
           throw new Error('Download failed');
         }

@@ -87,8 +87,7 @@ public class ScrutinySummaryService {
                 }
             }
             
-            // Get ALL activity logs for this bid (both BID and TENDER entity types)
-            // First get BID activities directly
+          
             List<ActivityLog> bidActivities = activityLogRepository.findByEntityTypeAndEntityIdOrderByTimestampDesc("BID", bidId);
             
             // Get TENDER activities using tenderId (since TENDER activities have tenderId as entityId)
